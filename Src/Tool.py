@@ -34,7 +34,23 @@ class Tool:
         
         return new_start.strftime("%H:%M:%S")
 
+    def format_duration(self, durations, start):
+        start_time = datetime.strptime(start, "%H:%M:%S")
+        res = []
+
+        for duration in durations:
+            end_time = start_time + timedelta(minutes=duration)
+            exam_str = f"{duration} mins exam {start_time.strftime('%H:%M')} to {end_time.strftime('%H:%M')}"
+            res.append(exam_str)
+            start_time = end_time
+            end_time = start_time + timedelta(minutes=5)
+            break_str = f"5 mins break {start_time.strftime('%H:%M')} to {end_time.strftime('%H:%M')}"
+            res.append(break_str)
+            start_time = end_time
+        res.pop()
+        return res
 
 if __name__ == "__main__":
     tool = Tool()
     print(tool.calculate_next_start(lunch_time="12:00:00", last_end="11:47:31", lunch_break=60, rest=30))
+    print(tool.format_duration([45,45,23], "09:00:00"))

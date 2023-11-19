@@ -20,31 +20,37 @@ if __name__ == "__main__":
 
         with open(configs["output_filename"], "w", newline="") as output_file:
             writer = csv.writer(output_file)
-            writer.writerow(["Name", "Start Time", "End Time", "Total Time", "Session Number", "Session Duration", "Break Number", "Break Duration"])
+            writer.writerow(["Name", "Start Time", "End Time", "Total Time", "Session", "Break Number", "Break Duration", "Session Number", "Session Duration"])
             
             for row in reader:
-                name = row[0]
-                init_duration = int(row[1])
-                date = row[2]
+                form = int(row [0])
+                name = row[1]
+                init_duration = int(row[2])
+                date = row[3]
+                
+                 # Generate a combined key for date and form
+                date_form_key = f"{date}_{form}"
 
-                if date not in date_start_dict:
-                    date_start_dict[date] = configs["start"]
+                if date_form_key not in date_start_dict:
+                    date_start_dict[date_form_key] = configs["start"]
 
-                start_time = date_start_dict[date]
+                start_time = date_start_dict[date_form_key]
                 break_duration = configs["break"]
 
-                exam = ExamTimeSlot(ratio=configs["ratio"], break_duration=break_duration, init_exam_duration=init_duration, start_time=start_time, name=name)
-                date_start_dict[date] = tool.calculate_next_start(lunch_time=configs["lunch"], last_end=exam.end_time, lunch_break=configs["lunch_break"], rest=configs["rest"])
-
+                exam = ExamTimeSlot(ratio=configs["ratio"], break_duration=break_duration, init_exam_duration=init_duration, start_time=start_time, name=name, form=form)
+                date_start_dict[date_form_key] = tool.calculate_next_start(lunch_time=configs["lunch"], last_end=exam.end_time, lunch_break=configs["lunch_break"], rest=configs["rest"])
+                
+                sessions = tool.format_duration(exam.session_duration, exam.start_time)
                 exam_data = [
                     exam.name,
                     exam.start_time,
                     exam.end_time,
                     exam.total_duration,
+                    sessions,
+                    exam.break_num,                
+                    exam.break_duration,
                     exam.session_num,
                     exam.session_duration,
-                    exam.break_num,
-                    exam.break_duration
                 ]
                 
                 writer.writerow(exam_data)

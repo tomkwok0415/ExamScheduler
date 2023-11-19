@@ -16,23 +16,15 @@ Special students are allowed a maximum of 45 minutes of continuous exam time, af
 Special Student Exam Duration: 90 * 1.25 = 112.5 minutes
 Breaks: 45 minutes + 15 minutes + 45 minutes + 15 minutes + 22.5 minutes
 
-## 3. Equally Distributed Exam Sessions
-
-To ensure fairness, each exam session needs to be equally distributed. For example, if the special student exam duration is 90 minutes:
-
-Special Student Exam Duration: 90 * 1.25 = 112.5 minutes
-Breaks: 45 minutes + 15 minutes + 45 minutes + 15 minutes + 22.5 minutes
-Equally Distributed Sessions: 28.125 minutes + 15 minutes + 28.125 minutes + 15 minutes + 28.125 minutes + 15 minutes + 28.125 minutes
-
-By following the above rules, the exam sessions for special students will be divided as follows:
-
-- First Session: 28 minutes 7 seconds 5 (28'7'5) * 4
-- Break: 15 minutes
-- Second Session: 28 minutes 7 seconds 5 (28'7'5) * 4
-- Break: 15 minutes
-- Third Session: 28 minutes 7 seconds 5 (28'7'5) * 4
-- Break: 15 minutes
-- Fourth Session: 28 minutes 7 seconds 5 (28'7'5) * 4
+## 3. Exam Session reminder
+If the remainder is less than 16 minutes, a remainder needs to be handled. The handling of the remainder is as follows:
+If the remainder is less than 16 minutes:
+Calculate the adjusted exam time as the rounded-up average of the original last session duration and 45 minutes.
+If there are less than 2 exam sessions of 45 minutes each:
+Append two new session durations to the schedule, where the first duration is the adjusted exam time and the second duration is the adjusted exam time minus 1 minute.
+Else:
+Append two new session durations to the schedule, where both durations are the adjusted exam time.
+If the remainder is 16 minutes or greater, the last session duration remains unchanged.
 
 ## Configuration
 The scheduler requires certain configuration parameters to function correctly. These parameters can be set in the Configuration/configurations.json file. Here are the available configuration options:

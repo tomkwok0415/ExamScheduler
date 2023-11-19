@@ -1,7 +1,9 @@
-Name,Start Time,End Time,Total Time,Session Number,Session Duration,Break Number,Break Duration
-Eng Reading,9:00:00,11:41:00,161,4,29,3,15
-Math,12:45:00,16:30:00,225,6,25,5,15
-Chinese Reading,9:00:00,11:41:00,161,4,29,3,15
-Chinese Speaking,12:45:00,14:16:00,91,2,38,1,15
-English Writing,9:00:00,11:57:00,177,4,33,3,15
-Chinese Writing,13:00:00,15:57:00,177,4,33,3,15
+Name,Start Time,End Time,Total Time,Session,Break Number,Break Duration,Session Number,Session Duration
+Eng Reading,9:00:00,10:30:00,90,['90 mins exam 09:00 to 10:30'],0,5,1,[90]
+Eng Reading,9:00:00,11:03:00,123,"['45 mins exam 09:00 to 09:45', '5 mins break 09:45 to 09:50', '45 mins exam 09:50 to 10:35', '5 mins break 10:35 to 10:40', '23 mins exam 10:40 to 11:03']",2,5,3,"[45, 45, 23]"
+Math,12:15:00,15:00:00,165,"['45 mins exam 12:15 to 13:00', '5 mins break 13:00 to 13:05', '45 mins exam 13:05 to 13:50', '5 mins break 13:50 to 13:55', '30 mins exam 13:55 to 14:25', '5 mins break 14:25 to 14:30', '30 mins exam 14:30 to 15:00']",3,5,4,"[45, 45, 30, 30]"
+Chinese Reading,9:00:00,11:03:00,123,"['45 mins exam 09:00 to 09:45', '5 mins break 09:45 to 09:50', '45 mins exam 09:50 to 10:35', '5 mins break 10:35 to 10:40', '23 mins exam 10:40 to 11:03']",2,5,3,"[45, 45, 23]"
+Chinese Speaking,12:15:00,13:15:00,60,['60 mins exam 12:15 to 13:15'],0,5,1,[60]
+English Writing,9:00:00,11:22:00,142,"['45 mins exam 09:00 to 09:45', '5 mins break 09:45 to 09:50', '45 mins exam 09:50 to 10:35', '5 mins break 10:35 to 10:40', '42 mins exam 10:40 to 11:22']",2,5,3,"[45, 45, 42]"
+Chinese Writing,12:30:00,14:52:00,142,"['45 mins exam 12:30 to 13:15', '5 mins break 13:15 to 13:20', '45 mins exam 13:20 to 14:05', '5 mins break 14:05 to 14:10', '42 mins exam 14:10 to 14:52']",2,5,3,"[45, 45, 42]"
+Chinese Speaking,9:00:00,10:44:00,104,"['45 mins exam 09:00 to 09:45', '5 mins break 09:45 to 09:50', '25 mins exam 09:50 to 10:15', '5 mins break 10:15 to 10:20', '24 mins exam 10:20 to 10:44']",2,5,3,"[45, 25, 24]"
