@@ -48,7 +48,7 @@ output_filename: The file path for the output data containing the scheduled exam
 
 ## Getting Started
 
-Go to Configurartion/cpnfigurations.json can setup the configs:
+Go to Configurartion/configurations.json can setup the configs:
 To use the scheduler, follow these steps:
 
 1. Go to project directory
