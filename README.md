@@ -40,6 +40,7 @@ The scheduler requires certain configuration parameters to function correctly. T
 start: The start time for the examinations (e.g., "9:00:00").
 lunch: The time for the lunch break (e.g., "12:00:00").
 lunch_break: The duration of the lunch break in minutes (e.g., 60).
+ratio: The ratio of the exam duration (e.g., 1.25).
 break: The duration of regular breaks in exam in minutes (e.g., 15).
 rest: The duration of rest periods between exam sessions in minutes (e.g., 30).
 input_filename: The file path for the input data containing the exam details (e.g., "./Timeslot/Input/timeslot.csv").

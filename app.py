@@ -33,7 +33,7 @@ if __name__ == "__main__":
                 start_time = date_start_dict[date]
                 break_duration = configs["break"]
 
-                exam = ExamTimeSlot(break_duration=break_duration, init_exam_duration=init_duration, start_time=start_time, name=name)
+                exam = ExamTimeSlot(ratio=configs["ratio"], break_duration=break_duration, init_exam_duration=init_duration, start_time=start_time, name=name)
                 date_start_dict[date] = tool.calculate_next_start(lunch_time=configs["lunch"], last_end=exam.end_time, lunch_break=configs["lunch_break"], rest=configs["rest"])
 
                 exam_data = [

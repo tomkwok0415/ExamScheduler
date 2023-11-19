@@ -2,6 +2,7 @@
     "start":"9:00:00",
     "lunch":"12:00:00",
     "lunch_break":60,
+    "ratio":1.25,
     "break": 15,
     "rest": 30,
     "input_filename": "./Timeslot/Input/timeslot.csv",
