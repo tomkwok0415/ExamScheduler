@@ -1,11 +1,27 @@
 from datetime import datetime, timedelta
 
 
-class Tool:
-    def __init__(self):
-        pass
+class TimeTool:
+    def calculate_duration_minutes(self, start_time_str, end_time_str):
+        start_time = datetime.strptime(start_time_str, "%H:%M:%S")
+        end_time = datetime.strptime(end_time_str, "%H:%M:%S")
+        duration = end_time - start_time
+        return duration.seconds // 60
 
-    def round_minute(self, time):
+    def get_later_time(self, time1_str, time2_str):
+        time1 = datetime.strptime(time1_str, "%H:%M:%S")
+        time2 = datetime.strptime(time2_str, "%H:%M:%S")
+
+        if time1 >= time2:
+            return time1_str
+        else:
+            return time2_str
+
+    def format_time_hms(self, time_str):
+        time = datetime.strptime(time_str, "%H:%M")
+        return time.strftime("%H:%M:%S")
+
+    def round_to_nearest_minute(self, time):
         minute = time.minute
 
         if 0 < minute <= 15:
@@ -20,37 +36,33 @@ class Tool:
         time = time.replace(second=0)
         return time
 
-    def calculate_next_start(self,lunch_time, last_end, lunch_break, rest):
-        new_start = datetime.strptime(last_end, "%H:%M:%S")
-        lunch_time = datetime.strptime(lunch_time, "%H:%M:%S")
-        new_start = self.round_minute(new_start)
+    def calculate_next_start_time(self, last_end_time_str, rest_duration):
+        last_end_time = datetime.strptime(last_end_time_str, "%H:%M:%S")
+        rounded_start_time = self.round_to_nearest_minute(last_end_time)
+        new_start_time = rounded_start_time + timedelta(minutes=rest_duration)
+        return new_start_time.strftime("%H:%M:%S")
 
-        temp = new_start + timedelta(minutes=lunch_break)
-        
-        if temp.time() >= lunch_time.time():
-            new_start += timedelta(minutes=lunch_break)
-        else:
-            new_start += timedelta(minutes=rest)
-        
-        return new_start.strftime("%H:%M:%S")
-
-    def format_duration(self, durations, start):
-        start_time = datetime.strptime(start, "%H:%M:%S")
-        res = []
+    def format_duration_times(self, durations, start_time_str, break_duration):
+        start_time = datetime.strptime(start_time_str, "%H:%M:%S")
+        result = []
 
         for duration in durations:
-            end_time = start_time + timedelta(minutes=duration)
-            exam_str = f"{duration} mins exam {start_time.strftime('%H:%M')} to {end_time.strftime('%H:%M')}"
-            res.append(exam_str)
-            start_time = end_time
-            end_time = start_time + timedelta(minutes=5)
-            break_str = f"5 mins break {start_time.strftime('%H:%M')} to {end_time.strftime('%H:%M')}"
-            res.append(break_str)
-            start_time = end_time
-        res.pop()
-        return res
+            result.append(datetime.strftime(start_time, "%H:%M"))
+            break_time = start_time + timedelta(minutes=duration)
+            result.append(datetime.strftime(break_time, "%H:%M"))
+            start_time = break_time + timedelta(minutes=break_duration)
+
+        result.pop()
+        end_time = start_time - timedelta(minutes=break_duration)
+
+        while len(result) < 9:
+            result.append(None)
+
+        result.append(datetime.strftime(end_time, "%H:%M"))
+        return result
+
 
 if __name__ == "__main__":
-    tool = Tool()
-    print(tool.calculate_next_start(lunch_time="12:00:00", last_end="11:47:31", lunch_break=60, rest=30))
-    print(tool.format_duration([45,45,23], "09:00:00"))
+    tool = TimeTool()
+    print(tool.calculate_next_start_time(last_end_time_str="11:47:31", rest_duration=30))
+    print(tool.format_duration_times([45, 45, 23], start_time_str="09:00:00", break_duration=5))

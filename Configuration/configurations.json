@@ -1,10 +1,8 @@
 {
-    "start":"9:00:00",
-    "lunch":"12:00:00",
-    "lunch_break":60,
+    "start":"8:30:00",
     "ratio":1.25,
     "break": 5,
-    "rest": 30,
-    "input_filename": "./Timeslot/Input/timeslot.csv",
-    "output_filename": "./Timeslot/Output/timeslot.csv"
+    "rest": 45,
+    "input_filename": "./timeslot/input/timeslot.csv",
+    "output_filename": "./timeslot/output/timeslot.csv"
 }

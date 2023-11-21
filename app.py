@@ -1,10 +1,10 @@
 import csv
 import json
-from Src.ExamTimeSlot import ExamTimeSlot
-from Src.Tool import Tool
+from src.ExamTimeSlot import ExamTimeSlot
+from src.Tool import TimeTool
 
 if __name__ == "__main__":
-    config_file = "./Configuration/configurations.json"
+    config_file = "./configuration/configurations.json"
     configs = {}
 
     # Load configurations from JSON file
@@ -12,47 +12,63 @@ if __name__ == "__main__":
         configs = json.load(json_file)
 
     date_start_dict = {}
-    tool = Tool()
+    time_tool = TimeTool()
 
-    with open(configs["input_filename"], "r") as file:
+    with open(configs["input_filename"], "r", encoding="utf-8-sig") as file:
         reader = csv.reader(file)
         next(reader)  # Skip header
 
-        with open(configs["output_filename"], "w", newline="") as output_file:
+        with open(configs["output_filename"], "w", encoding="utf-8-sig", newline="") as output_file:
             writer = csv.writer(output_file)
-            writer.writerow(["Name", "Start Time", "End Time", "Total Time", "Session", "Break Number", "Break Duration", "Session Number", "Session Duration"])
-            
+            writer.writerow(["Date", "Form", "Subject", "Student Name", "Student Class", "Student Class Number",
+                             "Starting Time", "End Time", "Exam Duration", "1st start", "1st break", "2nd start",
+                             "2nd break", "3rd start", "3rd break", "4th start", "4th break", "5th start", "End",
+                             "Break Number", "Session Number", "Session"])
+
             for row in reader:
-                form = int(row [0])
-                name = row[1]
-                init_duration = int(row[2])
-                date = row[3]
-                
-                 # Generate a combined key for date and form
-                date_form_key = f"{date}_{form}"
+                date = row[0]
+                form = int(row[1])
+                subject = row[2]
+                student_name = row[3]
+                student_class = row[4]
+                student_number = row[5]
+                original_start = time_tool.format_time_hms(row[6])
+                original_end = time_tool.format_time_hms(row[7])
 
-                if date_form_key not in date_start_dict:
-                    date_start_dict[date_form_key] = configs["start"]
+                initial_duration = time_tool.calculate_duration_minutes(original_start, original_end)
+                if len(row) >= 9 and row[8] is not None:
+                    initial_duration = int(row[8])
 
-                start_time = date_start_dict[date_form_key]
+                # Generate a combined key
+                composite_date_key = f"{date}_{form}_{student_class}_{student_number}_{student_name}"
+
+                if composite_date_key not in date_start_dict:
+                    date_start_dict[composite_date_key] = configs["start"]
+
+                start_time = time_tool.get_later_time(date_start_dict[composite_date_key], original_start)
                 break_duration = configs["break"]
+                rest = configs["rest"]
 
-                exam = ExamTimeSlot(ratio=configs["ratio"], break_duration=break_duration, init_exam_duration=init_duration, start_time=start_time, name=name, form=form)
-                date_start_dict[date_form_key] = tool.calculate_next_start(lunch_time=configs["lunch"], last_end=exam.end_time, lunch_break=configs["lunch_break"], rest=configs["rest"])
-                
-                sessions = tool.format_duration(exam.session_duration, exam.start_time)
+                exam = ExamTimeSlot(ratio=configs["ratio"], initial_duration=initial_duration,
+                                    break_duration=break_duration, start_time=start_time, subject=subject,
+                                    form=form, rest=rest)
+                date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time, configs["rest"])
+
+                sessions = time_tool.format_duration_times(exam.session_durations, exam.start_time, configs["break"])
                 exam_data = [
-                    exam.name,
+                    date,
+                    form,
+                    exam.subject,
+                    student_name,
+                    student_class,
+                    student_number,
                     exam.start_time,
                     exam.end_time,
                     exam.total_duration,
-                    sessions,
-                    exam.break_num,                
-                    exam.break_duration,
-                    exam.session_num,
-                    exam.session_duration,
                 ]
-                
+                exam_data.extend(sessions)
+                exam_data.extend([exam.break_count, exam.session_count, exam.session_durations])
+
                 writer.writerow(exam_data)
                 print(str(exam))
                 print()
