@@ -1,10 +1,10 @@
 import csv
 import json
-from src.ExamTimeSlot import ExamTimeSlot
-from src.Tool import TimeTool
+from Src.ExamTimeSlot import ExamTimeSlot
+from Src.Tool import TimeTool
 
 if __name__ == "__main__":
-    config_file = "./configuration/configurations.json"
+    config_file = "./Configuration/configurations.json"
     configs = {}
 
     # Load configurations from JSON file

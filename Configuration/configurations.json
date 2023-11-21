@@ -3,6 +3,6 @@
     "ratio":1.25,
     "break": 5,
     "rest": 45,
-    "input_filename": "./timeslot/input/timeslot.csv",
-    "output_filename": "./timeslot/output/timeslot.csv"
+    "input_filename": "./Timeslot/Input/timeslot.csv",
+    "output_filename": "./Timeslot/Output/timeslot.csv"
 }
