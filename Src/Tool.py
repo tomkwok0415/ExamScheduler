@@ -20,25 +20,17 @@ class TimeTool:
     def format_time_hms(self, time_str):
         time = datetime.strptime(time_str, "%H:%M")
         return time.strftime("%H:%M:%S")
-
-    def round_to_nearest_minute(self, time):
-        minute = time.minute
-
-        if 0 < minute <= 15:
-            time = time.replace(minute=15)
-        elif 15 < minute <= 30:
-            time = time.replace(minute=30)
-        elif 30 < minute <= 45:
-            time = time.replace(minute=45)
-        elif 45 < minute <= 59:
-            time = time.replace(hour=time.hour + 1, minute=0)
-
-        time = time.replace(second=0)
-        return time
+    
+    def date_str_to_date(sef, date_str):
+        date = datetime.strptime(date_str, "%d/%m/%Y")
+        return date
+    
+    def date_to_date_str(sef, date):
+        return date.strftime("%d/%m/%Y")
 
     def calculate_next_start_time(self, last_end_time_str, rest_duration):
         last_end_time = datetime.strptime(last_end_time_str, "%H:%M:%S")
-        rounded_start_time = self.round_to_nearest_minute(last_end_time)
+        rounded_start_time = last_end_time
         new_start_time = rounded_start_time + timedelta(minutes=rest_duration)
         return new_start_time.strftime("%H:%M:%S")
 

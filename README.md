@@ -57,6 +57,33 @@ The scheduler requires certain configuration parameters to function correctly. T
 
 To use the scheduler, follow these steps:
 
-1. Set the desired configuration options in the `Configuration/configurations.json` file.
-2. Ensure you have the required dependencies installed by running the command `pip install datetime`.
-3. Run the command `python app.py` to execute the scheduler.
+1. Configure the Scheduler:
+   - Open the `Configuration/configurations.json` file.
+   - Set the desired configuration options according to your requirements.
+
+2. Install Dependencies:
+   - Make sure you have the necessary dependencies installed.
+   - Open your terminal or command prompt.
+   - Run the following command to install the `datetime` package:
+     ```
+     pip install datetime
+     ```
+
+3. Execute the Scheduler:
+   - In your terminal or command prompt, navigate to the project directory.
+   - Run the following command to start the scheduler:
+     ```
+     python app.py
+     ```
+
+4. Handling Chinese Word Displaying Issues:
+   - If you encounter problems with Chinese word display in the input file:
+     - Open the file in Excel.
+     - Select "Save As" and choose "CSV UTF-8" as the file format.
+
+5. Resolving Date Displaying Problems:
+   - If you encounter date displaying issues (e.g., `1/12/2023` appears as `#########`):
+     - Open the file in Excel.
+     - Select the date column.
+     - Right-click and choose "Format Cells."
+     - Select the "Date" category and choose the appropriate date format (e.g., `d/m/yyyy` for `14/3/2012`).
