@@ -17,12 +17,27 @@ Special students are allowed a maximum of 45 minutes of continuous exam time, af
 
 - For High Form Students (Form 4-6): If their adjusted exam duration is less than 90 minutes, they will also not have a break.
 
-For High Form Students with a adjusted exam duration of 90 minutes or more, the break schedule is as follows:
+For High Form Students with an adjusted exam duration of 90 minutes or more, the break schedule is as follows:
 
 Special Student Exam Duration: 90 * 1.25 = 112.5 minutes = 113 minutes (Rounding up)
 Breaks: 45 minutes + 5 minutes + 45 minutes + 5 minutes + Remaining Time
 
 Note that the Remaining Time is the duration after accommodating the maximum number of breaks.
+
+- For VA Exam, it has VA (評賞部分), VA (畫畫部分) 
+It will be input as 2 subjects:
+VA (評賞部分) * 1.25
+VA (畫畫部分) * 1.05
+Form 4: 30 mins + 2h 30 mins
+Form 6: 45 mins + 3h 15 mins
+
+For example, for Form 4:
+VA (評賞部分) 8:30 - 9:00 => 8:30 - 9:08 (38 mins)
+VA (畫畫部分) * 1.05 + some 5 mins breaks
+
+For Form 6:
+VA (評賞部分) 8:30 - 9:15 => 8:30 - 9:27 (57 mins)
+VA (畫畫部分) * 1.05 + some 5 mins breaks
 
 ## 3. Handling of Remaining Exam Session Duration
 
@@ -52,6 +67,7 @@ The scheduler requires certain configuration parameters to function correctly. T
 - `rest`: The duration of rest periods between exam sessions in minutes (e.g., 30).
 - `input_filename`: The file path for the input data containing the exam details (e.g., "./Timeslot/Input/timeslot.csv").
 - `output_filename`: The file path for the output data containing the scheduled exam sessions (e.g., "./Timeslot/Output/timeslot.csv").
+- `painting_subject`: The subject name for the VA painting exam (e.g., "VA (畫畫部分)")
 
 ## Getting Started
 
@@ -71,7 +87,7 @@ To use the scheduler, follow these steps:
 
 3. Execute the Scheduler:
    - In your terminal or command prompt, navigate to the project directory.
-   - Run the following command to start the scheduler:
+   - Run the following command tostart the scheduler:
      ```
      python app.py
      ```

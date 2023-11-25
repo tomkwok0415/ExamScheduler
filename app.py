@@ -44,12 +44,12 @@ if __name__ == "__main__":
                 date_start_dict[composite_date_key] = configs["start"]
 
             start_time = time_tool.get_later_time(date_start_dict[composite_date_key], original_start)
-            if subject == "VA (畫畫部分)":
+            if subject == configs["painting_subject"]:
                 start_time = time_tool.time_minus_minutes(start_time, rest)
             break_duration = configs["break"]
             rest = configs["rest"]
 
-            exam = ExamTimeSlot(ratio=configs["ratio"], initial_duration=initial_duration,
+            exam = ExamTimeSlot(painting_subject=configs["painting_subject"], ratio=configs["ratio"], initial_duration=initial_duration,
                                 break_duration=break_duration, start_time=start_time, subject=subject,
                                 form=form, rest=rest)
             date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time, configs["rest"])
