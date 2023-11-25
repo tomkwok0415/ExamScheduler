@@ -15,9 +15,9 @@ Special students are allowed a maximum of 45 minutes of continuous exam time, af
 
 - For Low Form Students (Form 1-3): They will not have break time. Their exam time is simply multiplied by the ratio.
 
-- For High Form Students (Form 4-6): If their regular exam duration is less than 90 minutes, they will also not have a break, and their exam time is multiplied by the ratio, similar to Low Form Students.
+- For High Form Students (Form 4-6): If their adjusted exam duration is less than 90 minutes, they will also not have a break.
 
-For High Form Students with a regular exam duration of 90 minutes or more, the break schedule is as follows:
+For High Form Students with a adjusted exam duration of 90 minutes or more, the break schedule is as follows:
 
 Special Student Exam Duration: 90 * 1.25 = 112.5 minutes = 113 minutes (Rounding up)
 Breaks: 45 minutes + 5 minutes + 45 minutes + 5 minutes + Remaining Time

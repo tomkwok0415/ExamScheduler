@@ -19,12 +19,12 @@ class ExamTimeSlot:
         """
         Calculate the exam schedule based on the given parameters.
         """
-        if form < 4 or total_exam_time < 90:
-            total_exam_time = math.ceil(total_exam_time * ratio)
-            return [total_exam_time], 1, 0, total_exam_time
-
         # Multiply the exam time by ratio
         adjusted_exam_time = math.ceil(total_exam_time * ratio)
+
+        if form < 4 or adjusted_exam_time < 90:
+            return [adjusted_exam_time], 1, 0, adjusted_exam_time
+
 
         session_durations = []
         while adjusted_exam_time > rest:
