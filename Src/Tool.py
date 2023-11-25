@@ -16,6 +16,10 @@ class TimeTool:
             return time1_str
         else:
             return time2_str
+    def time_minus_minutes(self, time_str, minutes):
+        time = datetime.strptime(time_str, "%H:%M:%S")
+        time -=  timedelta(minutes=minutes)
+        return time.strftime("%H:%M:%S")
 
     def format_time_hms(self, time_str):
         time = datetime.strptime(time_str, "%H:%M")
@@ -47,7 +51,7 @@ class TimeTool:
         result.pop()
         end_time = start_time - timedelta(minutes=break_duration)
 
-        while len(result) < 9:
+        while len(result) < 13:
             result.append(None)
 
         result.append(datetime.strftime(end_time, "%H:%M"))

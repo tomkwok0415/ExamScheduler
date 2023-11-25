@@ -44,6 +44,8 @@ if __name__ == "__main__":
                 date_start_dict[composite_date_key] = configs["start"]
 
             start_time = time_tool.get_later_time(date_start_dict[composite_date_key], original_start)
+            if subject == "VA (畫畫部分)":
+                start_time = time_tool.time_minus_minutes(start_time, rest)
             break_duration = configs["break"]
             rest = configs["rest"]
 
@@ -76,7 +78,7 @@ if __name__ == "__main__":
         writer = csv.writer(output_file)
         writer.writerow(["Date", "Form", "Subject", "Student Name", "Student Class", "Student Class Number",
                          "Starting Time", "End Time", "Exam Duration", "1st start", "1st break", "2nd start",
-                         "2nd break", "3rd start", "3rd break", "4th start", "4th break", "5th start", "End",
+                         "2nd break", "3rd start", "3rd break", "4th start", "4th break", "5th start", "5th break", "6th start", "6th break", "7th break", "End",
                          "Break Number", "Session Number", "Session"])
 
         for exam_data in sorted_exams:

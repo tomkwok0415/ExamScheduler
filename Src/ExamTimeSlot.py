@@ -9,16 +9,18 @@ class ExamTimeSlot:
         self.subject = subject
         self.break_duration = break_duration
         self.session_durations, self.session_count, self.break_count, self.total_duration = self.calculate_exam_schedule(
-            ratio=ratio, total_exam_time=initial_duration, break_duration=break_duration, form=self.form, rest=rest)
+            ratio=ratio, total_exam_time=initial_duration, break_duration=break_duration, form=self.form, rest=rest, subject=subject)
         self.end_time = self.calculate_end_time(start_time, self.total_duration)
 
     def __str__(self):
         return f"{self.subject} starts at {self.start_time}, ends at {self.end_time}, total duration: {self.total_duration} mins with {self.session_count} session(s), each session {self.session_durations} mins, {self.break_count} break(s), each break {self.break_duration} mins"
 
-    def calculate_exam_schedule(self, ratio, total_exam_time, break_duration, form, rest):
+    def calculate_exam_schedule(self, ratio, total_exam_time, break_duration, form, rest, subject):
         """
         Calculate the exam schedule based on the given parameters.
         """
+        if subject == "VA (畫畫部分)":
+            ratio = 1.05
         # Multiply the exam time by ratio
         adjusted_exam_time = math.ceil(total_exam_time * ratio)
 

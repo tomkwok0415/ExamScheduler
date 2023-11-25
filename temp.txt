@@ -1,0 +1,11 @@
+VA (評賞部分), VA (畫畫部分) input as 2 subject
+VA (評賞部分) *1.25
+VA (畫畫部分) *1.05
+form 4 30 mins 2h 30mins
+form 6 45 mins 3 h 15 mins
+e.g. form 4: 
+VA (評賞部分) 8:30 - 9:00 => 8:30 - 9:08 (38 mins)
+VA (畫畫部分) *1.05 + some 5 mins breaks
+form 6:
+VA (評賞部分) 8:30 - 9:15 => 8:30 - 9:27 (57 mins)
+VA (畫畫部分) *1.05  + some 5 mins breaks
