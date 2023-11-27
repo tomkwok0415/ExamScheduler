@@ -9,7 +9,7 @@ if __name__ == "__main__":
     configs = {}
 
     # Load configurations from JSON file
-    with open(config_file,"r",encoding="utf-8-sig") as json_file:
+    with open(config_file, encoding="utf-8-sig") as json_file:
         configs = json.load(json_file)
 
     date_start_dict = {}
