@@ -20,11 +20,10 @@ if __name__ == "__main__":
         next(reader)  # Skip header
 
         exams = []  # Store exam data for sorting
-
         for row in reader:
             # # in case there is empty line, skip it
-            # if row is None:
-            #     continue
+            if row is None or len(row) == 0:
+                continue
             date = time_tool.date_str_to_date(row[0])
             form = int(row[1])
             subject = row[2]
