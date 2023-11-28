@@ -22,7 +22,7 @@ if __name__ == "__main__":
         exams = []  # Store exam data for sorting
         for row in reader:
             # # in case there is empty line, skip it
-            if row is None or len(row) == 0:
+            if row is None or len(row) == 0 or row[0] is None or row[0] == '':
                 continue
             date = time_tool.date_str_to_date(row[0])
             form = int(row[1])
@@ -32,7 +32,8 @@ if __name__ == "__main__":
             student_number = row[5]
             original_start = time_tool.format_time_hms(row[6])
             original_end = time_tool.format_time_hms(row[7])
-
+            
+            rest = configs["rest"]
             initial_duration = time_tool.calculate_duration_minutes(original_start, original_end)
             if len(row) >= 9 and row[8] is not None and row[8] != '':
                 initial_duration = int(row[8])
@@ -44,9 +45,9 @@ if __name__ == "__main__":
 
             start_time = time_tool.get_later_time(date_start_dict[composite_date_key], original_start)
             if subject == configs["painting_subject"]:
-                start_time = time_tool.time_minus_minutes(start_time, rest)
+                start_time = time_tool.time_minus_minutes(start_time, rest)                
             break_duration = configs["break"]
-            rest = configs["rest"]
+            
 
             exam = ExamTimeSlot(painting_subject=configs["painting_subject"], ratio=configs["ratio"], initial_duration=initial_duration,
                                 break_duration=break_duration, start_time=start_time, subject=subject,

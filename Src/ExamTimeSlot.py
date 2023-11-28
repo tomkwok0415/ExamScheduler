@@ -27,7 +27,6 @@ class ExamTimeSlot:
         if form < 4 or adjusted_exam_time < 90:
             return [adjusted_exam_time], 1, 0, adjusted_exam_time
 
-
         session_durations = []
         while adjusted_exam_time > rest:
             session_durations.append(rest)
@@ -36,8 +35,12 @@ class ExamTimeSlot:
         if adjusted_exam_time < 16:
             if len(session_durations) <= 2:
                 session_durations.pop()
-                adjusted_exam_time = math.ceil((adjusted_exam_time + rest) / 2)
-                session_durations.extend([adjusted_exam_time, adjusted_exam_time - 1])
+                if ((adjusted_exam_time + rest) % 2) !=0 :                    
+                    adjusted_exam_time = math.ceil((adjusted_exam_time + rest) / 2)
+                    session_durations.extend([adjusted_exam_time, adjusted_exam_time - 1])
+                else:
+                    adjusted_exam_time = int((adjusted_exam_time + rest) / 2)
+                    session_durations.extend([adjusted_exam_time, adjusted_exam_time])
             else:
                 session_durations.pop()
                 adjusted_exam_time = math.ceil((adjusted_exam_time + rest) / 2)
@@ -49,7 +52,7 @@ class ExamTimeSlot:
         break_count = len(session_durations) - 1
 
         # Calculate the total exam time including breaks
-        total_time_with_breaks = sum(session_durations) + break_duration * break_count
+        total_time_with_breaks = sum(session_durations) + math.ceil(break_duration * break_count)
 
         # Return the calculated schedule
         return session_durations, session_count, break_count, total_time_with_breaks
@@ -65,12 +68,15 @@ class ExamTimeSlot:
 
 
 if __name__ == "__main__":
-    time_slot = ExamTimeSlot(painting_subject = "VA (畫畫部分", ratio=1.25, initial_duration=120, break_duration=5, start_time="09:00:00",
+    time_slot = ExamTimeSlot(painting_subject = "VA (畫畫部分)", ratio=1.25, initial_duration=120, break_duration=5, start_time="09:00:00",
                              subject="Math Exam", form=4, rest=45)
     print(time_slot)
-    time_slot = ExamTimeSlot(painting_subject = "VA (畫畫部分", ratio=1.25, initial_duration=75, break_duration=5, start_time="09:00:00",
+    time_slot = ExamTimeSlot(painting_subject = "VA (畫畫部分)", ratio=1.25, initial_duration=75, break_duration=5, start_time="09:00:00",
                              subject="Eng Exam", form=4, rest=45)
     print(time_slot)
-    time_slot = ExamTimeSlot(painting_subject = "VA (畫畫部分", ratio=1.25, initial_duration=90, break_duration=5, start_time="09:00:00",
+    time_slot = ExamTimeSlot(painting_subject = "VA (畫畫部分)", ratio=1.25, initial_duration=90, break_duration=5, start_time="09:00:00",
                              subject="Eng Exam", form=4, rest=45)
+    print(time_slot)
+    time_slot = ExamTimeSlot(painting_subject = "VA (畫畫部分)", ratio=1.25, initial_duration=90, break_duration=5, start_time="09:00:00",
+                             subject="VA (畫畫部分)", form=4, rest=45)
     print(time_slot)

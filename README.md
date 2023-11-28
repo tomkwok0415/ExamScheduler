@@ -103,3 +103,5 @@ To use the scheduler, follow these steps:
      - Select the date column.
      - Right-click and choose "Format Cells."
      - Select the "Date" category and choose the appropriate date format (e.g., `d/m/yyyy` for `14/3/2012`).
+
+Note: Avoid running the program while opening the input/output file in Excel, as it may cause bugs due to file permission conflicts.
