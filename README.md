@@ -68,6 +68,7 @@ The scheduler requires certain configuration parameters to function correctly. T
 - `input_filename`: The file path for the input data containing the exam details (e.g., "./Timeslot/Input/timeslot.csv").
 - `output_filename`: The file path for the output data containing the scheduled exam sessions (e.g., "./Timeslot/Output/timeslot.csv").
 - `painting_subject`: The subject name for the VA painting exam (e.g., "VA (畫畫部分)")
+- `painting_comment_subject`: The subject name for the VA painting comment exam (e.g., "VA (評賞部分)")
 
 ## Getting Started
 

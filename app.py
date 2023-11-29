@@ -44,16 +44,17 @@ if __name__ == "__main__":
                 date_start_dict[composite_date_key] = configs["start"]
 
             start_time = time_tool.get_later_time(date_start_dict[composite_date_key], original_start)
-            if subject == configs["painting_subject"]:
-                start_time = time_tool.time_minus_minutes(start_time, rest)                
             break_duration = configs["break"]
             
 
             exam = ExamTimeSlot(painting_subject=configs["painting_subject"], ratio=configs["ratio"], initial_duration=initial_duration,
                                 break_duration=break_duration, start_time=start_time, subject=subject,
                                 form=form, rest=rest)
-            date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time, configs["rest"])
-
+            if subject == configs["paintint_comment_subject"]:
+                date_start_dict[composite_date_key] = exam.end_time
+            else:            
+                date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time, configs["rest"])
+            
             sessions = time_tool.format_duration_times(exam.session_durations, exam.start_time, configs["break"])
             exam_data = [
                 date,
