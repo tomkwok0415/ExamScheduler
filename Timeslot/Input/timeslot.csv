@@ -1,5 +1,6 @@
 ﻿Date,Form,Subject,Student Name,Student Class,Student Class Number,Starting Time,End Time,Exam Duration
 1/12/2023,1,Eng Reading,Ben,A,11,8:30,10:00,90
+1/12/2023,1,Eng Speaking,Ben,A,11,10:45,12:00,75
 1/12/2023,4,Eng Reading,Ken,C,20,8:30,10:00,90
 1/12/2023,4,Math,Ken,C,20,10:45,12:45,120
 2/12/2023,4,Chinese Reading,Ken,C,20,8:30,10:00,90
@@ -10,6 +11,8 @@
 3/12/2023,5,歷史,陳小明,D,2,10:30,13:30,
 29/11/2023,1,中史,一心,A,5,8:30,10:30,
 30/11/2023,1,ICT,大明,B,10,8:30,9:45,
+30/11/2023,1,地理,大明,B,10,10:30,12:00,
+30/11/2023,1,日文,大明,B,10,12:45,13:45,
 29/11/2023,1,中史,Ben,A,2,8:30,10:30,
 20/11/2023,1,English Paper 1,Candy,C,15,8:30,9:30,
 20/11/2023,1,English Paper 2,Candy,C,15,10:15,11:15,

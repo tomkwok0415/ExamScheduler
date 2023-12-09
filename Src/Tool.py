@@ -80,6 +80,8 @@ if __name__ == "__main__":
     print(tool.calculate_next_start_time(last_end_time_str="11:02:31", rest_duration=30))
     print(tool.calculate_next_start_time(last_end_time_str="11:07:31", rest_duration=30))
     print(tool.calculate_next_start_time(last_end_time_str="11:45:31", rest_duration=30))
+    print(tool.calculate_next_start_time(last_end_time_str="11:49:31", rest_duration=45))
+    print(tool.calculate_next_start_time(last_end_time_str="11:04:00", rest_duration=45))
     
     
     print(tool.format_duration_times([45, 45, 23], start_time_str="09:00:00", break_duration=5))
