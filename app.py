@@ -72,8 +72,8 @@ if __name__ == "__main__":
 
             exams.append(exam_data)
 
-    # Sort exams by date, class, and class number
-    sorted_exams = sorted(exams, key=itemgetter(0, 4, 5))
+    # Sort exams by date, form, class, and class number
+    sorted_exams = sorted(exams, key=itemgetter(0, 1, 4, 5))
 
     with open(configs["output_filename"], "w", encoding="utf-8-sig", newline="") as output_file:
         writer = csv.writer(output_file)
