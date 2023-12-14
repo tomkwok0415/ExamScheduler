@@ -21,12 +21,16 @@ class TimeTool:
         time -=  timedelta(minutes=minutes)
         return time.strftime("%H:%M:%S")
 
-    def format_time_hms(self, time_str):
+    def hm_str_to_hms_str(self, time_str):
         time = datetime.strptime(time_str, "%H:%M")
         return time.strftime("%H:%M:%S")
     
     def date_str_to_date(self, date_str):
         date = datetime.strptime(date_str, "%d/%m/%Y")
+        return date
+    
+    def hm_str_to_hm(self, date_str):
+        date = datetime.strptime(date_str, "%H:%M")
         return date
     
     def date_to_date_str(self, date):
