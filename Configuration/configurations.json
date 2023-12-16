@@ -5,6 +5,7 @@
     "rest": 45,
     "input_filename": "./Timeslot/Input/timeslot.csv",
     "output_filename": "./Timeslot/Output/timeslot.csv",
-    "painting_subject": "VA (畫畫部分)",
-    "paintint_comment_subject": "VA (評賞部分)"
+    "visual_art_painting_subject": "VA (畫畫部分)",
+    "paintint_comment_subject": "VA (評賞部分)",
+    "putonghua_subject": "普通話"
 }

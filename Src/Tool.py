@@ -54,6 +54,11 @@ class TimeTool:
         rounded_start_time = self.round_to_nearest_minute(last_end_time)
         new_start_time = rounded_start_time + timedelta(minutes=rest_duration)
         return new_start_time.strftime("%H:%M:%S")    
+    
+    def calculate_next_start_time_without_round(self, last_end_time_str, rest_duration):
+        last_end_time = datetime.strptime(last_end_time_str, "%H:%M:%S")
+        new_start_time = last_end_time + timedelta(minutes=rest_duration)
+        return new_start_time.strftime("%H:%M:%S")    
 
     def format_duration_times(self, durations, start_time_str, break_duration):
         start_time = datetime.strptime(start_time_str, "%H:%M:%S")

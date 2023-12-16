@@ -28,7 +28,6 @@ if __name__ == "__main__":
     # Process the sorted rows
     exams = []  # Store exam data for sorting
     for row in sorted_rows:
-        print(row)
         # # in case there is empty line, skip it
         if row is None or len(row) == 0 or row[0] is None or row[0] == '':
             continue
@@ -53,11 +52,14 @@ if __name__ == "__main__":
         start_time = time_tool.get_later_time(date_start_dict[composite_date_key], original_start)
         break_duration = configs["break"]
 
-        exam = ExamTimeSlot(painting_subject=configs["painting_subject"], ratio=configs["ratio"],
+        exam = ExamTimeSlot(visual_art_painting_subject=configs["visual_art_painting_subject"], ratio=configs["ratio"],
                             initial_duration=initial_duration, break_duration=break_duration,
                             start_time=start_time, subject=subject, form=form, rest=rest)
         if subject == configs["paintint_comment_subject"]:
             date_start_dict[composite_date_key] = exam.end_time
+        elif subject == configs["putonghua_subject"]:
+            date_start_dict[composite_date_key] = time_tool.calculate_next_start_time_without_round(exam.end_time,
+                                                                                      break_duration)
         else:
             date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time,
                                                                                       configs["rest"])

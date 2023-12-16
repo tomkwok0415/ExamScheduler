@@ -11,7 +11,7 @@ Special Student Exam Duration: 90 * 1.25 = 112.5 minutes = 113 minutes (Rounding
 
 ## 2. Break Time for Special Students
 
-Special students are allowed a maximum of 45 minutes of continuous exam time, after which they are required to take a 15-minute break. However, there are some exceptions based on the student's form level:
+Special students are allowed a maximum of 45 minutes of continuous exam time, after which they are required to take a 5-minute break. However, there are some exceptions based on the student's form level:
 
 - For Low Form Students (Form 1-3): They will not have break time. Their exam time is simply multiplied by the ratio.
 
@@ -24,7 +24,7 @@ Breaks: 45 minutes + 5 minutes + 45 minutes + 5 minutes + Remaining Time
 
 Note that the Remaining Time is the duration after accommodating the maximum number of breaks.
 
-- For VA Exam, it has VA (評賞部分), VA (畫畫部分) 
+- For the VA Exam, it has two subjects: VA (評賞部分) and VA (畫畫部分).
 It will be input as 2 subjects:
 VA (評賞部分) * 1.25
 VA (畫畫部分) * 1.05
@@ -38,6 +38,8 @@ VA (畫畫部分) * 1.05 + some 5 mins breaks
 For Form 6:
 VA (評賞部分) 8:30 - 9:15 => 8:30 - 9:27 (57 mins)
 VA (畫畫部分) * 1.05 + some 5 mins breaks
+
+- For Putonghua and Visual Art Exam, there will be no rest between them but a break.
 
 ## 3. Handling of Remaining Exam Session Duration
 
@@ -67,8 +69,9 @@ The scheduler requires certain configuration parameters to function correctly. T
 - `rest`: The duration of rest periods between exam sessions in minutes (e.g., 30).
 - `input_filename`: The file path for the input data containing the exam details (e.g., "./Timeslot/Input/timeslot.csv").
 - `output_filename`: The file path for the output data containing the scheduled exam sessions (e.g., "./Timeslot/Output/timeslot.csv").
-- `painting_subject`: The subject name for the VA painting exam (e.g., "VA (畫畫部分)")
-- `painting_comment_subject`: The subject name for the VA painting comment exam (e.g., "VA (評賞部分)")
+- `visual_art_painting_subject`: The subject name for the VA painting exam (e.g., "VA (畫畫部分)")
+- `visual_art_comment_subject`: The subject name for the VA painting comment exam (e.g., "VA (評賞部分)")
+- `putonghua_subject`: The subject name for the Putonghua exam (e.g., "普通話")
 
 ## Getting Started
 
@@ -88,7 +91,7 @@ To use the scheduler, follow these steps:
 
 3. Execute the Scheduler:
    - In your terminal or command prompt, navigate to the project directory.
-   - Run the following command tostart the scheduler:
+   - Run the following command to start the scheduler:
      ```
      python app.py
      ```
