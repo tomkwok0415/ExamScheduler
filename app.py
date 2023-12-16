@@ -28,6 +28,7 @@ if __name__ == "__main__":
     # Process the sorted rows
     exams = []  # Store exam data for sorting
     for row in sorted_rows:
+        print(row)
         # # in case there is empty line, skip it
         if row is None or len(row) == 0 or row[0] is None or row[0] == '':
             continue
@@ -43,8 +44,6 @@ if __name__ == "__main__":
 
         rest = configs["rest"]
         initial_duration = time_tool.calculate_duration_minutes(original_start, original_end)
-        if len(row) >= 10 and row[9] is not None and row[9] != '':
-            initial_duration = int(row[9])
 
         composite_date_key = f"{date}_{form}_{student_class}_{student_number}_{student_name}"
 
