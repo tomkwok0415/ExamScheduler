@@ -33,16 +33,11 @@ class ExamTimeSlot:
             adjusted_exam_time -= rest
 
         if adjusted_exam_time < 16:
-            if len(session_durations) <= 2:
-                session_durations.pop()
-                if ((adjusted_exam_time + rest) % 2) !=0 :                    
-                    adjusted_exam_time = math.ceil((adjusted_exam_time + rest) / 2)
-                    session_durations.extend([adjusted_exam_time, adjusted_exam_time - 1])
-                else:
-                    adjusted_exam_time = int((adjusted_exam_time + rest) / 2)
-                    session_durations.extend([adjusted_exam_time, adjusted_exam_time])
+            session_durations.pop()
+            if ((adjusted_exam_time + rest) % 2) !=0 :                    
+                adjusted_exam_time = math.ceil((adjusted_exam_time + rest) / 2)
+                session_durations.extend([adjusted_exam_time, adjusted_exam_time - 1])
             else:
-                session_durations.pop()
                 adjusted_exam_time = math.ceil((adjusted_exam_time + rest) / 2)
                 session_durations.extend([adjusted_exam_time, adjusted_exam_time])
         else:
@@ -79,4 +74,7 @@ if __name__ == "__main__":
     print(time_slot)
     time_slot = ExamTimeSlot(visual_art_painting_subject = "VA (畫畫部分)", ratio=1.25, initial_duration=90, break_duration=5, start_time="09:00:00",
                              subject="VA (畫畫部分)", form=4, rest=45)
+    print(time_slot)
+    time_slot = ExamTimeSlot(visual_art_painting_subject="VA (畫畫部分)", ratio=1.25, initial_duration=150, break_duration=5, start_time="09:00:00",
+                             subject="Test Exam", form=4, rest=45)
     print(time_slot)
