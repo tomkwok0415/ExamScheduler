@@ -7,5 +7,16 @@
     "output_filename": "./Timeslot/Output/timeslot.csv",
     "visual_art_painting_subject": "VA (畫畫部分)",
     "paintint_comment_subject": "VA (評賞部分)",
-    "putonghua_subject": "普通話"
+    "putonghua_subject": "普通話",
+    "eng_paper3_listening_and_integrated_skills":"Eng(Paper 3) Listening & Integrated Skills",
+    "tsa_30_mins_rest":30,
+    "tsa_35_mins_rest":35,
+    "tsa_chinese_writing":"TSA中國語文 (寫作)",
+    "tsa_chinese_reading":"TSA中國語文 (閱讀)",
+    "tsa_chinese_visual_information":"TSA中國語文 (視覺資訊)",
+    "tsa_chinese_listening":"TSA中國語文 (鈴聽)",    
+    "tsa_english_writing":"TSA Eng (Writing)",
+    "tsa_english_reading":"TSA Eng (Reading)",    
+    "tsa_english_listening":"TSA Eng (Listening)",
+    "tsa_math":"TSA數學"    
 }

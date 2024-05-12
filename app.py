@@ -64,13 +64,19 @@ if __name__ == "__main__":
             start_time = time_tool.get_later_time(date_start_dict[composite_date_key], original_start)
             break_duration = configs["break"]
 
-            exam = ExamTimeSlot(visual_art_painting_subject=configs["visual_art_painting_subject"], ratio=configs["ratio"],
+            exam = ExamTimeSlot(visual_art_painting_subject=configs["visual_art_painting_subject"],not_ratio_subjects=[configs["tsa_english_listening"], configs["tsa_chinese_listening"]], ratio=configs["ratio"],
                                 initial_duration=initial_duration, break_duration=break_duration,
                                 start_time=start_time, subject=subject, form=form, rest=rest)
             if subject == configs["paintint_comment_subject"]:
                 date_start_dict[composite_date_key] = exam.end_time
-            elif subject == configs["putonghua_subject"]:
+            elif subject == configs["putonghua_subject"] or subject == configs["tsa_chinese_visual_information"] or subject == configs["tsa_english_reading"]:
                 date_start_dict[composite_date_key] = time_tool.calculate_next_start_time_without_round(exam.end_time, break_duration)
+            elif subject == configs["eng_paper3_listening_and_integrated_skills"] and form <3:
+                date_start_dict[composite_date_key] = time_tool.calculate_next_start_time_without_round(exam.end_time, break_duration)
+            elif subject == configs["tsa_chinese_writing"] or subject == configs["tsa_chinese_reading"] or subject == configs["tsa_english_listening"]:
+                date_start_dict[composite_date_key] = time_tool.calculate_next_start_time_without_round(exam.end_time, configs["tsa_30_mins_rest"])
+            elif subject == configs["tsa_english_writing"]: 
+                date_start_dict[composite_date_key] = time_tool.calculate_next_start_time_without_round(exam.end_time, configs["tsa_35_mins_rest"])
             else:
                 date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time, configs["rest"])
 
@@ -83,10 +89,13 @@ if __name__ == "__main__":
                 student_class,
                 student_number,
                 room,
+                original_start,
+                original_end,
                 exam.start_time,
                 exam.end_time,
                 exam.total_duration,
             ]
+            sessions.insert(-1,exam.green_pen_time)
             exam_data.extend(sessions)
             exam_data.extend([exam.break_count, exam.session_count, exam.session_durations])
 
@@ -99,10 +108,10 @@ if __name__ == "__main__":
     try:
         with open(configs["output_filename"], "w", encoding="utf-8-sig", newline="") as output_file:
             writer = csv.writer(output_file)
-            writer.writerow(["Date", "Form", "Subject", "Student Name", "Student Class", "Student Class Number", "Room",
-                             "Starting Time", "End Time", "Exam Duration", "1st start", "1st break", "2nd start",
+            writer.writerow(["Date", "Form", "Subject", "Student Name", "Student Class", "Student Class Number", "Room", "Orginial Start Time", "Orginial End Time",
+                             "Start Time", "End Time", "Exam Duration", "1st start", "1st break", "2nd start",
                              "2nd break", "3rd start", "3rd break", "4th start", "4th break", "5th start", "5th break",
-                             "6th start", "6th break", "7th break", "End", "Break Number", "Session Number", "Session"])
+                             "6th start", "6th break", "7th break", "Green Pen Time", "End", "Break Number", "Session Number", "Session"])
 
             for exam_data in exams:
                 exam_data[0] = time_tool.date_to_date_str(exam_data[0])
