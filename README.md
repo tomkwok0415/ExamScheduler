@@ -25,20 +25,20 @@ Breaks: 45 minutes + 5 minutes + 45 minutes + 5 minutes + Remaining Time
 Note that the Remaining Time is the duration after accommodating the maximum number of breaks.
 
 - For the VA Exam, it has two subjects: VA (評賞部分) and VA (畫畫部分).
-- It will be input as 2 subjects:
-- VA (評賞部分) * 1.25
-- VA (畫畫部分) * 1.25
-- VA (評賞部分) * 1.25 => 5 mins rest => VA (畫畫部分) * 1.25
-- There is no rounding for the 5 mins rest between VA (評賞部分) and VA (畫畫部分)
+   - It will be input as 2 subjects:
+      - VA (評賞部分) * 1.25
+      - VA (畫畫部分) * 1.25
+      - VA (評賞部分) * 1.25 => 5 mins rest => VA (畫畫部分) * 1.25
+      - There is no rounding for the 5 mins rest between VA (評賞部分) and VA (畫畫部分)
 
 - For Putonghua, there will be no rest between it and next exam.
 
 - For Form 1 & Form 2 Eng Paper 3 Exam, there will only have 5 mins rest between it and next exam.
-- There is no rounding for the 5 mins rest between Form 1 & Form 2 Eng Paper 3 Exam and next exam
+   - There is no rounding for the 5 mins rest between Form 1 & Form 2 Eng Paper 3 Exam and next exam
 
 - For Form 3 TSA Exam:
-- TSA中文(寫作) * 1.25 => 30 minutes rest => TSA中文(閱讀) * 1.25 => 30 minutes rest => TSA中文(視聽) * 1.25 => 5 minutes rest => TSA中文(鈴聽) * 1
-- TSA Eng (Writing) * 1.25 => 35 minutes rest => TSA Eng (Reading) => 30 minutes rest => TSA Eng (Listening) * 1 => TSA Maths * 1.25
+   - TSA中文(寫作) * 1.25 => 30 minutes rest => TSA中文(閱讀) * 1.25 => 30 minutes rest => TSA中文(視聽) * 1.25 => 5 minutes rest => TSA中文(鈴聽) * 1
+   - TSA Eng (Writing) * 1.25 => 35 minutes rest => TSA Eng (Reading) => 30 minutes rest => TSA Eng (Listening) * 1 => TSA Maths * 1.25
 
 ## 3. Handling of Remaining Exam Session Duration
 
