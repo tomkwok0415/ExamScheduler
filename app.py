@@ -46,9 +46,8 @@ if __name__ == "__main__":
             # in case there is an empty line, skip it
             if row is None or len(row) == 0 or row[0] is None or row[0] == '':
                 continue
-
-            date, form, subject, student_name, student_class, student_number, original_start, original_end, room, situation, ratio, rest = read_tool.read(time_tool, row, configs)
-
+            
+            date, form, subject, student_name, student_class, student_number, original_start, original_end, room, situation, ratio, rest, green_pen = read_tool.read(time_tool, row, configs)
             initial_duration = time_tool.calculate_duration_minutes(original_start, original_end)
 
             composite_date_key = f"{date}_{form}_{student_class}_{student_number}_{student_name}"
@@ -70,23 +69,7 @@ if __name__ == "__main__":
             elif subject in configs["no_rest_subjects"]:
                 date_start_dict[composite_date_key] = exam.end_time
             else:
-#                print(subject,rest)
                 date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time, rest)
-
-            # if subject == configs["paintint_comment_subject"]:
-            #     date_start_dict[composite_date_key] = exam.end_time
-            # elif subject == configs["putonghua_subject"]:
-            #     date_start_dict[composite_date_key] = time_tool.calculate_next_start_time_without_round(exam.end_time, rest)
-            # elif subject == configs["tsa_chinese_visual_information"] or subject == configs["tsa_english_reading"]:
-            #     date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time, rest)
-            # elif subject == configs["eng_paper3"] and form <3:
-            #     date_start_dict[composite_date_key] = time_tool.calculate_next_start_time_without_round(exam.end_time, rest)
-            # elif subject == configs["tsa_chinese_writing"] or subject == configs["tsa_chinese_reading"] or subject == configs["tsa_english_listening"]:
-            #     date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time, rest)
-            # elif subject == configs["tsa_english_writing"]: 
-            #     date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time, rest)
-            # else:
-            #     date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time, rest)
 
             sessions = time_tool.format_duration_times(exam.session_durations, exam.start_time, break_duration)
             exam_data = [
@@ -103,7 +86,17 @@ if __name__ == "__main__":
                 exam.end_time,
                 exam.total_duration,
             ]
-            sessions.insert(-1,exam.green_pen_time)
+            sessions.insert(-1,time_tool.time_minus_minutes(exam.end_time, 15))
+            sessions.insert(-1,time_tool.time_minus_minutes(exam.end_time, 5))
+            if form >= 4 and form <= 6:
+                sessions.insert(-1,exam.green_pen_time)
+            else:
+                sessions.insert(-1,"")
+            if green_pen:
+                sessions.insert(-1,exam.green_pen_time)
+            else:
+                sessions.insert(-1,"")
+
             exam_data.extend(sessions)
             exam_data.extend([exam.break_count, exam.session_count, exam.session_durations])
 
@@ -119,7 +112,7 @@ if __name__ == "__main__":
             writer.writerow(["Date", "Form", "Subject", "Student Name", "Student Class", "Student Class Number", "Room", "Orginial Start Time", "Orginial End Time",
                              "Start Time", "End Time", "Exam Duration", "1st start", "1st break", "2nd start",
                              "2nd break", "3rd start", "3rd break", "4th start", "4th break", "5th start", "5th break",
-                             "6th start", "6th break", "7th break", "Green Pen Time", "End", "Break Number", "Session Number", "Session"])
+                             "6th start", "6th break", "7th break", "15 minutes Leave", "5 minutes Leave", "Early Leave Time", "Green Pen Time", "End", "Break Number", "Session Number", "Session"])
 
             for exam_data in exams:
                 exam_data[0] = time_tool.date_to_date_str(exam_data[0])

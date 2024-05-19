@@ -20,7 +20,7 @@ class TimeTool:
     def time_minus_minutes(self, time_str, minutes):
         time = datetime.strptime(time_str, "%H:%M:%S")
         time -=  timedelta(minutes=minutes)
-        return time.strftime("%H:%M:%S")
+        return time.strftime("%H:%M")
 
     def hm_str_to_hms_str(self, time_str):
         time = datetime.strptime(time_str, "%H:%M")
@@ -83,44 +83,58 @@ class TimeTool:
 
 class ReadTool:
     def read(self, time_tool, row, configs):
-        date = time_tool.date_str_to_date(row[0])
-        form = int(row[1])
-        subject = row[2]
-        student_name = row[3]
-        student_class = row[4]
-        student_number = row[5]
-        original_start = time_tool.hm_str_to_hms_str(row[6])
-        original_end = time_tool.hm_str_to_hms_str(row[7])
-        room = row[8]            
-        if row[9] == '0':
-            situation = ExamType.RatioWithOutBreak
-        elif row[9] == '1':
-            situation = ExamType.RatioWithBreak
-        elif row[9] == '2':
-            situation = ExamType.Originial
-        else:
-            raise ValueError
-        
-        if subject in configs["no_ratio_subjects"]:
-            ratio = 1
-        elif subject in configs["1.05_ratio_sujects"]:
-            ratio = 1.05
-        else:
-            ratio = configs["ratio"]
-        
-        if subject in configs["5_mins_rest_subjects"]:
-            if subject == configs["eng_paper3"] and form > 2:
-                rest = configs["rest"]
+        try:
+            date = time_tool.date_str_to_date(row[0])
+            form = int(row[1])
+            subject = row[2]
+            student_name = row[3]
+            student_class = row[4]
+            student_number = row[5]
+            original_start = time_tool.hm_str_to_hms_str(row[6])
+            original_end = time_tool.hm_str_to_hms_str(row[7])
+            room = row[8]            
+            if row[9] == '0':
+                situation = ExamType.RatioWithOutBreak
+            elif row[9] == '1':
+                situation = ExamType.RatioWithBreak
+            elif row[9] == '2':
+                situation = ExamType.Originial
             else:
-                rest = 5
-        elif subject in configs["30_mins_rest_subjects"]:
-            rest = 30
-        elif subject in configs["35_mins_rest_subjects"]:
-            rest = 35
-        else:
-            rest = configs["rest"]
+                print("Situation Column only accept 0/1/2")
+                raise ValueError
+            
+            if row[10] == 'Y':
+                green_pen = True
+            elif row[10] == 'N':
+                green_pen = False
+            else:
+                print("Green Pen Column only accept Y/N")
+                raise ValueError
+            
+            if subject in configs["no_ratio_subjects"]:
+                ratio = 1
+            elif subject in configs["1.05_ratio_sujects"]:
+                ratio = 1.05
+            else:
+                ratio = configs["ratio"]
+            
+            if subject in configs["5_mins_rest_subjects"]:
+                if subject == configs["eng_paper3"] and form > 2:
+                    rest = configs["rest"]
+                else:
+                    rest = 5
+            elif subject in configs["30_mins_rest_subjects"]:
+                rest = 30
+            elif subject in configs["35_mins_rest_subjects"]:
+                rest = 35
+            else:
+                rest = configs["rest"]
+            
+            return date, form, subject, student_name, student_class, student_number, original_start, original_end, room, situation, ratio, rest, green_pen
         
-        return date, form, subject, student_name, student_class, student_number, original_start, original_end, room, situation, ratio, rest
+        except (ValueError, IndexError):
+            print(f"Error: Invalid data format in input file at row {row}.")
+            exit(1)
 
 if __name__ == "__main__":
     tool = TimeTool()
