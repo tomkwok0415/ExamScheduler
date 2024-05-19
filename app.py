@@ -1,8 +1,10 @@
 import csv
 import json
 from operator import itemgetter
+from Src.ExamType import ExamType
 from Src.ExamTimeSlot import ExamTimeSlot
 from Src.Tool import TimeTool
+from Src.Tool import ReadTool
 
 if __name__ == "__main__":
     config_file = "./Configuration/configurations.json"
@@ -21,6 +23,7 @@ if __name__ == "__main__":
 
     date_start_dict = {}
     time_tool = TimeTool()
+    read_tool = ReadTool()
 
     # Sort the input data
     rows = []
@@ -43,17 +46,9 @@ if __name__ == "__main__":
             # in case there is an empty line, skip it
             if row is None or len(row) == 0 or row[0] is None or row[0] == '':
                 continue
-            date = time_tool.date_str_to_date(row[0])
-            form = int(row[1])
-            subject = row[2]
-            student_name = row[3]
-            student_class = row[4]
-            student_number = row[5]
-            original_start = time_tool.hm_str_to_hms_str(row[6])
-            original_end = time_tool.hm_str_to_hms_str(row[7])
-            room = row[8]
 
-            rest = configs["rest"]
+            date, form, subject, student_name, student_class, student_number, original_start, original_end, room, situation, ratio, rest = read_tool.read(time_tool, row, configs)
+
             initial_duration = time_tool.calculate_duration_minutes(original_start, original_end)
 
             composite_date_key = f"{date}_{form}_{student_class}_{student_number}_{student_name}"
@@ -64,23 +59,36 @@ if __name__ == "__main__":
             start_time = time_tool.get_later_time(date_start_dict[composite_date_key], original_start)
             break_duration = configs["break"]
 
-            exam = ExamTimeSlot(visual_art_painting_subject=configs["visual_art_painting_subject"],not_ratio_subjects=[configs["tsa_english_listening"], configs["tsa_chinese_listening"]], ratio=configs["ratio"],
-                                initial_duration=initial_duration, break_duration=break_duration,
-                                start_time=start_time, subject=subject, form=form, rest=rest)
-            if subject == configs["paintint_comment_subject"]:
+            exam = ExamTimeSlot(ratio=ratio, initial_duration=initial_duration, break_duration=break_duration,
+                                start_time=start_time, subject=subject, form=form, rest=rest, situation=situation)
+        
+            if subject in configs["no_end_time_rounding_subjects"]:
+                if subject == configs["eng_paper3"] and form > 2:
+                    date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time, rest)
+                else:
+                    date_start_dict[composite_date_key] = time_tool.calculate_next_start_time_without_round(exam.end_time, rest)
+            elif subject in configs["no_rest_subjects"]:
                 date_start_dict[composite_date_key] = exam.end_time
-            elif subject == configs["putonghua_subject"] or subject == configs["tsa_chinese_visual_information"] or subject == configs["tsa_english_reading"]:
-                date_start_dict[composite_date_key] = time_tool.calculate_next_start_time_without_round(exam.end_time, break_duration)
-            elif subject == configs["eng_paper3_listening_and_integrated_skills"] and form <3:
-                date_start_dict[composite_date_key] = time_tool.calculate_next_start_time_without_round(exam.end_time, break_duration)
-            elif subject == configs["tsa_chinese_writing"] or subject == configs["tsa_chinese_reading"] or subject == configs["tsa_english_listening"]:
-                date_start_dict[composite_date_key] = time_tool.calculate_next_start_time_without_round(exam.end_time, configs["tsa_30_mins_rest"])
-            elif subject == configs["tsa_english_writing"]: 
-                date_start_dict[composite_date_key] = time_tool.calculate_next_start_time_without_round(exam.end_time, configs["tsa_35_mins_rest"])
             else:
-                date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time, configs["rest"])
+#                print(subject,rest)
+                date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time, rest)
 
-            sessions = time_tool.format_duration_times(exam.session_durations, exam.start_time, configs["break"])
+            # if subject == configs["paintint_comment_subject"]:
+            #     date_start_dict[composite_date_key] = exam.end_time
+            # elif subject == configs["putonghua_subject"]:
+            #     date_start_dict[composite_date_key] = time_tool.calculate_next_start_time_without_round(exam.end_time, rest)
+            # elif subject == configs["tsa_chinese_visual_information"] or subject == configs["tsa_english_reading"]:
+            #     date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time, rest)
+            # elif subject == configs["eng_paper3"] and form <3:
+            #     date_start_dict[composite_date_key] = time_tool.calculate_next_start_time_without_round(exam.end_time, rest)
+            # elif subject == configs["tsa_chinese_writing"] or subject == configs["tsa_chinese_reading"] or subject == configs["tsa_english_listening"]:
+            #     date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time, rest)
+            # elif subject == configs["tsa_english_writing"]: 
+            #     date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time, rest)
+            # else:
+            #     date_start_dict[composite_date_key] = time_tool.calculate_next_start_time(exam.end_time, rest)
+
+            sessions = time_tool.format_duration_times(exam.session_durations, exam.start_time, break_duration)
             exam_data = [
                 date,
                 form,

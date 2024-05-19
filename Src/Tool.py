@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from Src.ExamType import ExamType
 
 
 class TimeTool:
@@ -80,6 +81,47 @@ class TimeTool:
         return result
 
 
+class ReadTool:
+    def read(self, time_tool, row, configs):
+        date = time_tool.date_str_to_date(row[0])
+        form = int(row[1])
+        subject = row[2]
+        student_name = row[3]
+        student_class = row[4]
+        student_number = row[5]
+        original_start = time_tool.hm_str_to_hms_str(row[6])
+        original_end = time_tool.hm_str_to_hms_str(row[7])
+        room = row[8]            
+        if row[9] == '0':
+            situation = ExamType.RatioWithOutBreak
+        elif row[9] == '1':
+            situation = ExamType.RatioWithBreak
+        elif row[9] == '2':
+            situation = ExamType.Originial
+        else:
+            raise ValueError
+        
+        if subject in configs["no_ratio_subjects"]:
+            ratio = 1
+        elif subject in configs["1.05_ratio_sujects"]:
+            ratio = 1.05
+        else:
+            ratio = configs["ratio"]
+        
+        if subject in configs["5_mins_rest_subjects"]:
+            if subject == configs["eng_paper3"] and form > 2:
+                rest = configs["rest"]
+            else:
+                rest = 5
+        elif subject in configs["30_mins_rest_subjects"]:
+            rest = 30
+        elif subject in configs["35_mins_rest_subjects"]:
+            rest = 35
+        else:
+            rest = configs["rest"]
+        
+        return date, form, subject, student_name, student_class, student_number, original_start, original_end, room, situation, ratio, rest
+
 if __name__ == "__main__":
     tool = TimeTool()
     print(tool.calculate_next_start_time(last_end_time_str="11:47:31", rest_duration=45))
@@ -94,3 +136,5 @@ if __name__ == "__main__":
     
     
     print(tool.format_duration_times([45, 45, 23], start_time_str="09:00:00", break_duration=5))
+
+    print(tool.calculate_next_start_time(last_end_time_str="09:35:00", rest_duration=35))
